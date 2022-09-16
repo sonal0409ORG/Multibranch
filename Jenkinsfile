@@ -1,15 +1,22 @@
 pipeline {
+     tools{
+        jdk 'myjava'
+        maven 'mymaven'
+    }
     agent any
     stages {
-        stage('Build') {
-          when {
+         when{
             branch 'Deploy'
           }
+        stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn -B -DskipTests clean package'
             }
         }
         stage('Test') {
+          when{
+            branch 'test'
+          }
             steps {
                 sh 'mvn test'
             }
@@ -20,12 +27,11 @@ pipeline {
             }
         }
         stage('Deliver') {
-          
-           when {
+             when{
             branch 'Deploy'
           }
             steps {
-                sh 'echo "deploy demo"'
+                sh 'echo "Deploy code"'
             }
         }
     }
