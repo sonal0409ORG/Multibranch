@@ -5,10 +5,11 @@ pipeline {
     }
     agent any
     stages {
-         when{
+         
+        stage('Build') {
+             when{
             branch 'Deploy'
           }
-        stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
             }
