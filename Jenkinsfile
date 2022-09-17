@@ -11,7 +11,7 @@ pipeline {
             branch 'Deploy'
           }
             steps {
-                sh 'mvn -B -DskipTests clean package'
+                sh 'mvn clean package'
             }
         }
         stage('Test') {
@@ -21,11 +21,7 @@ pipeline {
             steps {
                 sh 'mvn test'
             }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
+          
         }
         stage('Deliver') {
              when{
